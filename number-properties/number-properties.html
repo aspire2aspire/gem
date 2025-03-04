@@ -1,66 +1,51 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en-US" dir="ltr" prefix="og: https://ogp.me/ns#"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en-US" dir="ltr" prefix="og: https://ogp.me/ns#"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en-US" dir="ltr" prefix="og: https://ogp.me/ns#"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en-US" dir="ltr" prefix="og: https://ogp.me/ns#"> <!--<![endif]-->
+<html lang="en-US" dir="ltr">
 <head>
-	<!-- Basic Page Needs
-  ================================================== -->
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Properties</title>
 
-<script src="/tools/numberfunctions.js"></script>
-<script src="/tools/propertybuilder.js"></script>
-<!-- Begin Header -->
+    <!-- Linking CSS (Make sure this is correct relative path) -->
+    <link rel="stylesheet" type="text/css" href="/tools/number-properties/css/numberstyle.css">
 
-          </head>
-<!-- End Header -->
-	<!-- Page Wrapper -->
-	<div class="page-wrapper">
-<link rel="stylesheet" type="text/css" href="/tools/number-properties/css/numberstyle.css">
+    <!-- Linking JavaScript files -->
+    <script src="/tools/numberfunctions.js"></script>
+    <script src="/tools/propertybuilder.js"></script>
 
+</head>
 
-<!-- Number Properties Top Banner -->
+<body>
 
-<div id="numPropContainer">
-	<center>
-		<h1>Number Properties of:</h1>
-		<div id="HTMLSpot"></div>
-		<input tabindex=0 id="NumberField" autofocus onkeydown="CheckEnter(event)" type="number" placeholder="Enter #"></input>
-		<br><br>
-		<button tabindex=1 id="NumberButton" class="buttonFunction" onclick="NavNumber()">Get Properties</button>
-	</center>
-</div>
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
 
-<!-- Number Properties (Below) -->
+        <!-- Number Properties Top Banner -->
+        <div id="numPropContainer">
+            <center>
+                <h1>Number Properties of:</h1>
+                <div id="HTMLSpot"></div> <!-- Placeholder for number properties -->
+                
+                <!-- Input Field for Number -->
+                <input id="NumberField" type="number" placeholder="Enter a number" autofocus onkeydown="CheckEnter(event)" tabindex="0">
+                <br><br>
+                <!-- Button to trigger number property display -->
+                <button id="NumberButton" class="buttonFunction" onclick="NavNumber()" tabindex="1">Get Properties</button>
+            </center>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <!-- Footer content (if any) -->
+        </footer>
 
-</div>
+    </div> <!-- End of page-wrapper -->
 
-
-
-</div>
-		</div> </div>
-	</div> 
-</div>
-</div>
-			</div> <!-- ./page-content -->
-
-	    <!-- END Main -->
-		</div>
-
-
-
-	
-	
-		<!-- Begin Footer -->
-		<footer class="main-footer">
-
-
-		  
-
-				</footer>
-
-
-	</div> <!-- ./page-wrapper -->
+    <script>
+        // Ensuring the page loads the number properties dynamically based on the URL query string
+        window.addEventListener('load', (event) => {
+            Get_NumberProperties();  // Calling the function to fetch number properties on page load
+        });
+    </script>
 
 </body>
 </html>
