@@ -33,6 +33,7 @@ function Populate_MenuBar() {
 
 	hStr = '<center><div class="MenuLink"><a href="javascript:Open_Ciphers()">Ciphers</a></div>  |  '
 	hStr += '<center><div class="MenuLink"><a href="DateDurations/datecalculator.html">Date Calculator</a></div>  |  '
+	hStr += '<center><div class="MenuLink"><a href="number-properties/number-properties.html">Number Details</a></div>  |  '
 	hStr += '<div class="MenuLink"><a href="javascript:Open_Options()">Options</a></div>'
 
 	hStr += '<BR></center>'
