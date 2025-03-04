@@ -1,51 +1,88 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Properties</title>
-
-    <!-- Linking CSS (Make sure this is correct relative path) -->
-    <link rel="stylesheet" type="text/css" href="/tools/number-properties/css/numberstyle.css">
-
-    <!-- Linking JavaScript files -->
-    <script src="/tools/numberfunctions.js"></script>
-    <script src="/tools/propertybuilder.js"></script>
-
+    <script src="path/to/your/number-properties.js"></script> <!-- Ensure this is correct -->
+    <style>
+        /* Add some styling to the number properties container */
+        #number-properties-container {
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-
 <body>
+    <div id="MenuSpot">
+        <nav class="header-nav">
+            <ul>
+                <li><a href="DateDurations/datecalculator.html">Date Calculator</a></li>
+                <li><a href="number-properties/number-properties.html">Number Properties</a></li>
+            </ul>
+        </nav>
+    </div>
 
-    <!-- Page Wrapper -->
-    <div class="page-wrapper">
+    <div id="MainTable">
+        <h3>Enter a Number:</h3>
+        <input type="number" id="number-input" placeholder="Enter a number" oninput="updateNumberProperties()">
+    </div>
 
-        <!-- Number Properties Top Banner -->
-        <div id="numPropContainer">
-            <center>
-                <h1>Number Properties of:</h1>
-                <div id="HTMLSpot"></div> <!-- Placeholder for number properties -->
-                
-                <!-- Input Field for Number -->
-                <input id="NumberField" type="number" placeholder="Enter a number" autofocus onkeydown="CheckEnter(event)" tabindex="0">
-                <br><br>
-                <!-- Button to trigger number property display -->
-                <button id="NumberButton" class="buttonFunction" onclick="NavNumber()" tabindex="1">Get Properties</button>
-            </center>
-        </div>
-        
-        <!-- Footer -->
-        <footer class="main-footer">
-            <!-- Footer content (if any) -->
-        </footer>
-
-    </div> <!-- End of page-wrapper -->
+    <!-- Number properties container -->
+    <div id="number-properties-container">
+        <!-- The properties will be displayed here -->
+    </div>
 
     <script>
-        // Ensuring the page loads the number properties dynamically based on the URL query string
-        window.addEventListener('load', (event) => {
-            Get_NumberProperties();  // Calling the function to fetch number properties on page load
-        });
-    </script>
+        function updateNumberProperties() {
+            const number = document.getElementById('number-input').value;
+            displayNumberProperties(number);
+        }
 
+        function displayNumberProperties(number) {
+            if (!number) return; // Don't proceed if the input is empty
+
+            // Assuming you have a function to get number properties
+            const propertiesContainer = document.getElementById('number-properties-container');
+            propertiesContainer.innerHTML = `
+                <h3>Properties of the number: ${number}</h3>
+                <p>Prime Factorization: ${getPrimeFactorization(number)}</p>
+                <p>Divisors: ${getDivisors(number)}</p>
+                <p>Is Prime: ${isPrime(number)}</p>
+            `;
+        }
+
+        // Example functions for number properties
+        function getPrimeFactorization(number) {
+            let factors = [];
+            for (let i = 2; i <= number; i++) {
+                while (number % i === 0) {
+                    factors.push(i);
+                    number /= i;
+                }
+            }
+            return factors.join(', ');
+        }
+
+        function getDivisors(number) {
+            let divisors = [];
+            for (let i = 1; i <= number; i++) {
+                if (number % i === 0) {
+                    divisors.push(i);
+                }
+            }
+            return divisors.join(', ');
+        }
+
+        function isPrime(number) {
+            if (number < 2) return false;
+            for (let i = 2; i <= Math.sqrt(number); i++) {
+                if (number % i === 0) return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
