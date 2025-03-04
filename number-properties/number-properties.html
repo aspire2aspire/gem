@@ -4,58 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Properties</title>
-    <script src="path/to/your/number-properties.js"></script> <!-- Ensure this is correct -->
     <style>
-        /* Add some styling to the number properties container */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
         #number-properties-container {
             padding: 20px;
             background-color: #f4f4f4;
             border-radius: 10px;
             margin-top: 20px;
         }
+        .property-item {
+            margin-bottom: 10px;
+        }
+        h3 {
+            color: #2c3e50;
+        }
     </style>
 </head>
 <body>
-    <div id="MenuSpot">
-        <nav class="header-nav">
-            <ul>
-                <li><a href="DateDurations/datecalculator.html">Date Calculator</a></li>
-                <li><a href="number-properties/number-properties.html">Number Properties</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div id="MainTable">
-        <h1>Number Properties of:</h1><br> 
-        <h3>Enter a Number:</h3>
-        <input type="number" id="number-input" placeholder="Enter a number" oninput="updateNumberProperties()">
-    </div>
-
-    <!-- Number properties container -->
-    <div id="number-properties-container">
-        <!-- The properties will be displayed here -->
-    </div>
+    <h2>Number Properties Calculator</h2>
+    <label for="number-input">Enter a Number:</label>
+    <input type="number" id="number-input" placeholder="Enter a number" oninput="updateNumberProperties()">
+    
+    <div id="number-properties-container"></div>
 
     <script>
         function updateNumberProperties() {
-            const number = document.getElementById('number-input').value;
+            const number = parseInt(document.getElementById('number-input').value);
+            if (isNaN(number) || number <= 0) {
+                document.getElementById('number-properties-container').innerHTML = '<p>Please enter a valid positive number.</p>';
+                return;
+            }
             displayNumberProperties(number);
         }
 
         function displayNumberProperties(number) {
-            if (!number) return; // Don't proceed if the input is empty
-
-            // Assuming you have a function to get number properties
             const propertiesContainer = document.getElementById('number-properties-container');
+            const primeFactors = getPrimeFactorization(number).join(' × ');
+            const divisors = getDivisors(number);
+            const divisorCount = divisors.length;
+            const divisorSum = divisors.reduce((sum, divisor) => sum + divisor, 0);
+
             propertiesContainer.innerHTML = `
-                <h3>Properties of the number: ${number}</h3>
-                <p>Prime Factorization: ${getPrimeFactorization(number)}</p>
-                <p>Divisors: ${getDivisors(number)}</p>
-                <p>Is Prime: ${isPrime(number)}</p>
+                <h3>Number Properties of: ${number}</h3>
+                <div class="property-item"><strong>Prime Factorization:</strong> ${primeFactors}</div>
+                <div class="property-item"><strong>Divisors:</strong> Count: ${divisorCount}, List: ${divisors.join(', ')}, Sum: ${divisorSum}</div>
+                <div class="property-item"><strong>Composite #:</strong> ${isPrime(number) ? "Not Composite" : getNthComposite(number)}</div>
+                <div class="property-item"><strong>Prime #:</strong> ${isPrime(number) ? getNthPrime(number) : "Not Prime"}</div>
+                <div class="property-item"><strong>Triangular #:</strong> ${getTriangular(number)}</div>
+                <div class="property-item"><strong>Square #:</strong> ${number ** 2}</div>
+                <div class="property-item"><strong>Cube #:</strong> ${number ** 3}</div>
+                <div class="property-item"><strong>Tetrahedral #:</strong> ${getTetrahedral(number)}</div>
+                <div class="property-item"><strong>Square Pyramidal #:</strong> ${getSquarePyramidal(number)}</div>
+                <div class="property-item"><strong>Star #:</strong> ${getStarNumber(number)}</div>
+                <div class="property-item"><strong>Pentagonal #:</strong> ${getPentagonal(number)}</div>
+                <h3>Conversions</h3>
+                <div class="property-item"><strong>Octal:</strong> ${number.toString(8)}</div>
+                <div class="property-item"><strong>Duodecimal:</strong> ${number.toString(12)}</div>
+                <div class="property-item"><strong>Hexadecimal:</strong> ${number.toString(16)}</div>
+                <div class="property-item"><strong>Binary:</strong> ${number.toString(2)}</div>
             `;
         }
 
-        // Example functions for number properties
         function getPrimeFactorization(number) {
             let factors = [];
             for (let i = 2; i <= number; i++) {
@@ -64,17 +76,15 @@
                     number /= i;
                 }
             }
-            return factors.join(', ');
+            return factors;
         }
 
         function getDivisors(number) {
             let divisors = [];
             for (let i = 1; i <= number; i++) {
-                if (number % i === 0) {
-                    divisors.push(i);
-                }
+                if (number % i === 0) divisors.push(i);
             }
-            return divisors.join(', ');
+            return divisors;
         }
 
         function isPrime(number) {
@@ -84,6 +94,45 @@
             }
             return true;
         }
+
+        function getNthPrime(n) {
+            let count = 0, num = 1;
+            while (count < n) {
+                num++;
+                if (isPrime(num)) count++;
+            }
+            return num;
+        }
+
+        function getNthComposite(n) {
+            let count = 0, num = 1;
+            while (count < n) {
+                num++;
+                if (!isPrime(num)) count++;
+            }
+            return num;
+        }
+
+        function getTriangular(n) {
+            return (n * (n + 1)) / 2;
+        }
+
+        function getTetrahedral(n) {
+            return (n * (n + 1) * (n + 2)) / 6;
+        }
+
+        function getSquarePyramidal(n) {
+            return (n * (n + 1) * (2 * n + 1)) / 6;
+        }
+
+        function getStarNumber(n) {
+            return (6 * n * (n - 1)) + 1;
+        }
+
+        function getPentagonal(n) {
+            return (n * ((3 * n) - 1)) / 2;
+        }
     </script>
 </body>
 </html>
+
