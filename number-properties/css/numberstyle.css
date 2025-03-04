@@ -1,0 +1,259 @@
+body {
+    font-size:14px;
+}
+table {
+	margin: 0px;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1 {
+	font-family: "Montserrat";
+	text-transform: uppercase;
+	font-size: 2em;
+	font-weight: 700;
+	color: #1862cf;
+	margin: 10px 0 10px;
+}
+h2 {
+	font-family: "Montserrat";
+	font-size: 2em;
+	font-weight: 700;
+	color: #1862cf;
+	margin: 0;	
+}
+#NumberField {
+	height: 30px;
+}
+.titles {
+	font-family: "Montserrat";
+	font-size: 2em;
+	font-weight: 700;
+	color: #1862cf;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+input#NumberField {
+	color: white;
+	background-color: black;
+	font-size: 1.25em;
+	font-weight: 600;
+	font-family: 'Arial';
+	width: 100px;
+	color: #DEDEDE;
+	background-color: black !important;
+	display: inline-block;
+	/*padding: 14px 2px 12px;*/
+    border-radius: 4px;
+    border: solid 2px #f0f0f0;
+    line-height: 1.6em;
+}
+
+::placeholder {
+    color: #757575;
+}
+#numPropContainer {
+	width: 1080px;
+	margin: auto;
+}
+
+.Linkable a {
+	color: skyblue;
+	text-decoration: none;
+	font-weight: bold;
+	font-family: "Lato";
+}
+.Linkable :hover {
+	color: #1862cf;
+}
+#TopTable {
+	margin-bottom: 5px;
+}
+#TopTable td {
+	/*border: 1px solid black;*/
+	padding: 0px 50px;
+	text-align: center;
+}
+#TopTable .RegularLink {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+#TopNumber {
+	font-size: 5em;
+	font-weight: bold;
+	font-family: "Lato";
+	color: white;
+}
+#belowSpecials {
+	float: left;
+	width: 100%;
+}
+#RelationTableDiv {
+	/*border: solid 2px RGB(77,77,77);*/
+	border-radius: 15px;
+	padding: 10px;
+	width: 45%;
+	float: left;
+	line-height: 1.5em;
+}
+#RelationTable td {
+	/*border: 1px solid black;*/
+	font-size: 1.25em;
+}
+#SeqTable {
+	margin-bottom: 5px;
+	/*color: white;*/
+	font-family: "Lato";
+}
+#SeqTable td {
+	/*border: 1px solid black;*/
+	font-size: 1.25em;
+	line-height: 1.25em;
+}
+.NavSeq {
+	/*border: 1px solid black;*/
+	padding: 0px 50px;
+	font-weight: bold;
+}
+.SeqNum {
+	display: inline-block;
+	color: RGB(0, 198, 0);
+}
+.SeqNum a {
+	color: RGB(0, 198, 0);
+}
+.SeqPlace {
+	color: RGB(0, 198, 0);
+	font-weight: bold;
+	text-align: center;
+	/*text-transform: uppercase;*/
+}
+.RelativeClass {
+	text-align: right;
+	color: white;
+	font-family: "Lato";
+}
+.RelativeNum {
+	text-align: left;
+}
+#DivisorTableDiv {
+	float: left;
+	width: 100%;
+	/*border: solid 2px RGB(77,77,77);*/
+	border-radius: 15px;
+	padding: 10px;
+	line-height: 1.5em;
+	color: white;
+	font-family: "Lato";
+}
+#DivisorTable {
+	text-align: center;
+	font-size: 1.25em;
+}
+#DivisorTable td {
+	/*border: 1px solid black;*/
+	padding: 0px 25px;
+	color: white;
+	font-family: "Lato";
+}
+#ConversionsTableDiv {
+	float: left;
+	width: 45%;
+	/*border: solid 2px RGB(77,77,77);*/
+	border-radius: 15px;
+	padding: 10px;
+	line-height: 1.5em;
+}
+
+#ConversionTable td {
+	/*border: 1px solid black;*/
+	text-align: center;
+	font-size: 1.25em;
+	color: white;
+	font-family: "Lato";
+}
+.conversionMiddle {
+	padding: 0px 50px;
+	color: white;
+	font-family: "Lato";
+}
+#PrimeString {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	font-family: "Lato";
+}
+.RegularLink {
+	color: lightskyblue;
+	font-family: "Lato";
+}
+.buttonFunction {
+	color: black;
+	font-weight: 700;
+	font-size: 1em;
+	height: 30px;
+	padding: 0px 0px;
+	display: inline-block;
+	width: 200px;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: "Lato";
+}
+@media (min-width:300px) and (max-width: 991px){
+	#numPropContainer {
+		width: 100%;
+	}
+	h1 {
+		font-size: 1.55em;
+	}
+	h2 {
+		font-size: 1.25em;
+	}
+	.titles {
+		font-size: 1.25em;
+	}
+	#TopNumber {
+		font-size: 3em;
+	}
+	#TopTable td {
+		padding: 5px;
+	}
+	.NavSeq {
+		padding: 0px 15px;
+	}
+	#DivisorTable tbody>tr>:nth-child(1),
+	#DivisorTable tbody>tr>:nth-child(3) {
+		/*background: #4e4e4e;*/
+		padding: 0px 10px;
+	}
+	#DivisorTable td {
+    padding: 0px 2px;
+    font-size: 0.85em;
+    color: white;
+   }
+  #DivisorTableDiv{
+    width: 100%;
+    padding:0px;
+    margin-top: 15px;
+   }
+  #RelationTableDiv, #ConversionsTableDiv {
+    width: 100%;
+    padding: 0;
+    margin-top: 15px;
+   }
+  #ConversionsTableDiv {
+    margin-bottom: 20px;
+   }
+  .buttonFunction {
+    height:60px;
+   }
+  #NumberField {
+   	height: 45px;
+   	width:  100px;
+   	font-size: 1.5em;
+   }
+}
