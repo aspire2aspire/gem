@@ -21,6 +21,9 @@
         h3 {
             color: #2c3e50;
         }
+        .base-conversion {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -31,43 +34,6 @@
     <div id="number-properties-container"></div>
 
     <script>
-        function updateNumberProperties() {
-            const number = parseInt(document.getElementById('number-input').value);
-            if (isNaN(number) || number <= 0) {
-                document.getElementById('number-properties-container').innerHTML = '<p>Please enter a valid positive number.</p>';
-                return;
-            }
-            displayNumberProperties(number);
-        }
-
-        function displayNumberProperties(number) {
-            const propertiesContainer = document.getElementById('number-properties-container');
-            const primeFactors = getPrimeFactorization(number).join(' × ');
-            const divisors = getDivisors(number);
-            const divisorCount = divisors.length;
-            const divisorSum = divisors.reduce((sum, divisor) => sum + divisor, 0);
-
-            propertiesContainer.innerHTML = `
-                <h3>Number Properties of: ${number}</h3>
-                <div class="property-item"><strong>Prime Factorization:</strong> ${primeFactors}</div>
-                <div class="property-item"><strong>Divisors:</strong> Count: ${divisorCount}, List: ${divisors.join(', ')}, Sum: ${divisorSum}</div>
-                <div class="property-item"><strong>Composite #:</strong> ${isPrime(number) ? "Not Composite" : getNthComposite(number)}</div>
-                <div class="property-item"><strong>Prime #:</strong> ${isPrime(number) ? getNthPrime(number) : "Not Prime"}</div>
-                <div class="property-item"><strong>Triangular #:</strong> ${getTriangular(number)}</div>
-                <div class="property-item"><strong>Square #:</strong> ${number ** 2}</div>
-                <div class="property-item"><strong>Cube #:</strong> ${number ** 3}</div>
-                <div class="property-item"><strong>Tetrahedral #:</strong> ${getTetrahedral(number)}</div>
-                <div class="property-item"><strong>Square Pyramidal #:</strong> ${getSquarePyramidal(number)}</div>
-                <div class="property-item"><strong>Star #:</strong> ${getStarNumber(number)}</div>
-                <div class="property-item"><strong>Pentagonal #:</strong> ${getPentagonal(number)}</div>
-                <h3>Conversions</h3>
-                <div class="property-item"><strong>Octal:</strong> ${number.toString(8)}</div>
-                <div class="property-item"><strong>Duodecimal:</strong> ${number.toString(12)}</div>
-                <div class="property-item"><strong>Hexadecimal:</strong> ${number.toString(16)}</div>
-                <div class="property-item"><strong>Binary:</strong> ${number.toString(2)}</div>
-            `;
-        }
-
         function getPrimeFactorization(number) {
             let factors = [];
             for (let i = 2; i <= number; i++) {
@@ -78,6 +44,13 @@
             }
             return factors;
         }
+		
+		function getUrlParameter(name) {
+			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+			var results = regex.exec(location.search);
+			return results === null ? '' : decodeURIComponent(results[1]);
+		}
 
         function getDivisors(number) {
             let divisors = [];
@@ -94,6 +67,17 @@
             }
             return true;
         }
+
+		function isPerfectNumber(n) {
+			let divisorSum = getDivisors(n).reduce((sum, div) => sum + div, 0) - n;
+			return divisorSum === n;
+		}
+		
+		function isArmstrongNumber(n) {
+			const digits = n.toString().split('').map(Number);
+			const sum = digits.reduce((acc, digit) => acc + Math.pow(digit, digits.length), 0);
+			return sum === n;
+		}
 
         function getNthPrime(n) {
             let count = 0, num = 1;
@@ -132,6 +116,149 @@
         function getPentagonal(n) {
             return (n * ((3 * n) - 1)) / 2;
         }
+
+        function isFibonacci(n) {
+            function isPerfectSquare(x) {
+                let s = Math.sqrt(x);
+                return s * s === x;
+            }
+            return isPerfectSquare(5 * n * n + 4) || isPerfectSquare(5 * n * n - 4);
+        }
+
+        function isHarshad(n) {
+            let sumDigits = n.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+            return n % sumDigits === 0;
+        }
+
+        function getFibonacciIndex(number) {
+            let a = 0, b = 1, index = 1;
+            while (b < number) {
+                let temp = a;
+                a = b;
+                b = temp + b;
+                index++;
+            }
+            return b === number ? index : -1;
+        }
+
+        function getTriangularIndex(number) {
+            let n = 1;
+            while (true) {
+                const triangularNumber = (n * (n + 1)) / 2;
+                if (triangularNumber === number) {
+                    return n;
+                }
+                if (triangularNumber > number) {
+                    return -1;
+                }
+                n++;
+            }
+        }
+
+        function toRoman(num) {
+            const romanNumerals = [
+                { value: 1000, symbol: "M" },
+                { value: 900, symbol: "CM" },
+                { value: 500, symbol: "D" },
+                { value: 400, symbol: "CD" },
+                { value: 100, symbol: "C" },
+                { value: 90, symbol: "XC" },
+                { value: 50, symbol: "L" },
+                { value: 40, symbol: "XL" },
+                { value: 10, symbol: "X" },
+                { value: 9, symbol: "IX" },
+                { value: 5, symbol: "V" },
+                { value: 4, symbol: "IV" },
+                { value: 1, symbol: "I" }
+            ];
+            let result = "";
+            for (let i = 0; i < romanNumerals.length; i++) {
+                while (num >= romanNumerals[i].value) {
+                    result += romanNumerals[i].symbol;
+                    num -= romanNumerals[i].value;
+                }
+            }
+            return result;
+        }
+
+		function updateNumberProperties() {
+			// First, try to get number from input
+			let number = parseInt(document.getElementById('number-input').value);
+			
+			// If no input, check URL parameter
+			if (isNaN(number)) {
+				number = parseInt(getUrlParameter('num'));
+			}
+
+			// If still not a valid number, show error
+			if (isNaN(number) || number <= 0) {
+				document.getElementById('number-properties-container').innerHTML = '<p>Please enter a valid positive number.</p>';
+				return;
+			}
+
+			// Set input field to the number (if from URL)
+			document.getElementById('number-input').value = number;
+			
+			// Display properties
+			displayNumberProperties(number);
+		}
+
+		function displayNumberProperties(number) {
+			const propertiesContainer = document.getElementById('number-properties-container');
+			const primeFactors = getPrimeFactorization(number).join(' × ');
+			const divisors = getDivisors(number);
+			const divisorCount = divisors.length;
+			const divisorSum = divisors.reduce((sum, divisor) => sum + divisor, 0);
+
+			function infoLink(url) {
+				return `<a href="${url}" target="_blank" style="text-decoration: none; color: blue;">(?)</a>`;
+			}
+
+			propertiesContainer.innerHTML = `
+				<h3>Number Properties of: ${number}</h3>
+				<div class="property-item"><strong>Prime Factorization:</strong> ${primeFactors} ${infoLink('https://en.wikipedia.org/wiki/Prime_factorization')}</div>
+				<div class="property-item"><strong>Divisors:</strong> Count: ${divisorCount}, List: ${divisors.join(', ')}, Sum: ${divisorSum} ${infoLink('https://en.wikipedia.org/wiki/Divisor')}</div>
+				<div class="property-item"><strong>Composite #:</strong> ${isPrime(number) ? "Not Composite" : getNthComposite(number)} ${infoLink('https://en.wikipedia.org/wiki/Composite_number')}</div>
+				<div class="property-item"><strong>Prime #:</strong> ${isPrime(number) ? getNthPrime(number) : "Not Prime"} ${infoLink('https://en.wikipedia.org/wiki/Prime_number')}</div>
+				<div class="property-item"><strong>Triangular #:</strong> ${getTriangular(number)} ${infoLink('https://en.wikipedia.org/wiki/Triangular_number')}</div>
+				<div class="property-item"><strong>Square #:</strong> ${number ** 2} ${infoLink('https://en.wikipedia.org/wiki/Square_number')}</div>
+				<div class="property-item"><strong>Cube #:</strong> ${number ** 3} ${infoLink('https://en.wikipedia.org/wiki/Cube_number')}</div>
+				<div class="property-item"><strong>Tetrahedral #:</strong> ${getTetrahedral(number)} ${infoLink('https://en.wikipedia.org/wiki/Tetrahedral_number')}</div>
+				<div class="property-item"><strong>Fibonacci #:</strong> ${getFibonacciIndex(number) >= 0 ? `Yes, it's the ${getFibonacciIndex(number)}th Fibonacci number` : "No, it's not a Fibonacci number"} ${infoLink('https://en.wikipedia.org/wiki/Fibonacci_number')}</div>
+				<div class="property-item"><strong>Triangular #:</strong> ${getTriangularIndex(number) >= 0 ? `Yes, it's the ${getTriangularIndex(number)}th Triangular number` : "No, it's not a Triangular number"} ${infoLink('https://en.wikipedia.org/wiki/Triangular_number')}</div>
+				<div class="property-item"><strong>Harshad (Niven) #:</strong> ${isHarshad(number) ? "Yes" : "No"} ${infoLink('https://en.wikipedia.org/wiki/Harshad_number')}</div>
+				<div class="property-item"><strong>Perfect Number:</strong> ${isPerfectNumber(number) ? "Yes" : "No"} ${infoLink('https://en.wikipedia.org/wiki/Perfect_number')}</div>
+				<div class="property-item"><strong>Armstrong Number:</strong> ${isArmstrongNumber(number) ? "Yes" : "No"} ${infoLink('https://en.wikipedia.org/wiki/Narcissistic_number')}</div>
+
+				<h3>Conversions</h3>
+				<div class="property-item"><strong>Binary:</strong> ${number.toString(2)} ${infoLink('https://en.wikipedia.org/wiki/Binary_number')}</div>
+				<div class="property-item"><strong>Hexadecimal:</strong> ${number.toString(16)} ${infoLink('https://en.wikipedia.org/wiki/Hexadecimal')}</div>
+				<div class="property-item"><strong>Octal:</strong> ${number.toString(8)} ${infoLink('https://en.wikipedia.org/wiki/Octal')}</div>
+				<div class="property-item"><strong>Roman Numeral:</strong> ${toRoman(number)} ${infoLink('https://en.wikipedia.org/wiki/Roman_numerals')}</div>
+				<div class="property-item"><strong>Scientific Notation:</strong> ${number.toExponential()}${infoLink('https://en.wikipedia.org/wiki/Scientific_notation')}</div>
+				<div class="property-item"><strong>Base-36:</strong> ${number.toString(36)} ${infoLink('https://en.wikipedia.org/wiki/Base36')}</div>
+
+                <h3>Advanced Base Conversions</h3>
+                <div class="base-conversion">
+                    <div><strong>Octal:</strong> ${number} (Base 10) → ${number.toString(8)} (Base 8) ${infoLink('https://en.wikipedia.org/wiki/Octal')}</div>
+                    <div><strong>Duodecimal:</strong> ${number} (Base 10) → ${number.toString(12)} (Base 12) ${infoLink('https://en.wikipedia.org/wiki/Duodecimal')}</div>
+                    <div><strong>Hexadecimal:</strong> ${number} (Base 10) → ${number.toString(16)} (Base 16) ${infoLink('https://en.wikipedia.org/wiki/Hexadecimal')}</div>
+                    <div><strong>Binary:</strong> ${number} (Base 10) → ${number.toString(2)} (Base 2) ${infoLink('https://en.wikipedia.org/wiki/Binary')}</div>
+                </div>
+                
+                <div class="base-conversion">
+                    <h4>Reverse Conversions</h4>
+                    <div><strong>From Octal:</strong> ${number.toString(8)} (Base 8) → ${number} (Base 10) ${infoLink('https://en.wikipedia.org/wiki/Octal')}</div>
+                    <div><strong>From Duodecimal:</strong> ${number.toString(12)} (Base 12) → ${number} (Base 10) ${infoLink('https://en.wikipedia.org/wiki/Duodecimal')}</div>
+                    <div><strong>From Hexadecimal:</strong> ${number.toString(16)} (Base 16) → ${number} (Base 10) ${infoLink('https://en.wikipedia.org/wiki/Hexadecimal')}</div>
+                    <div><strong>From Binary:</strong> ${number.toString(2)} (Base 2) → ${number} (Base 10) ${infoLink('https://en.wikipedia.org/wiki/Binary')}</div>
+                </div>
+			`;
+		}
+
+		
+		window.onload = updateNumberProperties;
+		
     </script>
 </body>
 </html>
