@@ -1,5 +1,9 @@
 // ============================ Database ============================
 
+if (typeof liveDatabaseMode === "undefined") {
+    var liveDatabaseMode = false; // Default to false if not defined
+}
+
 //try this code for auto loading database 
 function loadDatabase() {
     console.log("loadDatabase() function started..."); // Debugging log
