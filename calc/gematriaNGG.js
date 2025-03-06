@@ -623,7 +623,7 @@ function Populate_Sums(impVal) {
 
 function Open_Properties(impNum) {
 	if (impNum > 0 && impNum < 10000000) {
-		window.open("/number-properties/number-Properties.html?Number=" + impNum, "Properties of " + impNum, "height=480,width=750")
+		window.open("/number-properties/number-Properties.html?Num=" + impNum, "Properties of " + impNum, "height=480,width=750")
 	}
 }
 
