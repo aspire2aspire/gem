@@ -12,13 +12,18 @@
 <script src="calc/history.js"></script>
 <script src="calc/database.js"></script>
 
+//see if it's in live db mode
+console.log("Before liveDatabaseMode declaration:", typeof liveDatabaseMode);
+var liveDatabaseMode = true; // live database mode
+console.log("After liveDatabaseMode declaration:", typeof liveDatabaseMode);
 <!-- AUTO LOAD DATABASE (DB) -->
 <!-- To change the word matching database reference a different file in the script below or append lines to db.txt -->
 <script>
 	var database = loadFile("db.txt");
    	importFileAction(database, true);
 </script>
-
+//see if it's in live db mode
+console.log("After liveDatabaseMode declaration:", typeof liveDatabaseMode);
 
    <style>
         .header-nav {
