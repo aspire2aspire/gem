@@ -3,7 +3,7 @@
 if (typeof liveDatabaseMode === "undefined") {
     var liveDatabaseMode = false; // Default to false if not defined
 }
-var cipherList = cipherArray;
+var cipherList = cipherArray; //added 362025 to use open ciphers in the database lookup
 
 //try this code for auto loading database 
 function loadDatabase() {
