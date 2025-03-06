@@ -1,5 +1,23 @@
 // ============================ Database ============================
 
+//try this code for auto loading database 
+function loadDatabase() {
+    fetch('db.txt')
+    .then(response => response.text())
+    .then(text => {
+        userDB = parseDatabase(text);
+        console.log("Database loaded automatically!");
+    })
+    .catch(error => console.error("Error loading database:", error));
+}
+function parseDatabase(text) {
+    let lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    return lines.map(line => [line]); // Modify this structure if needed
+}
+// Automatically load database on page load
+document.addEventListener("DOMContentLoaded", loadDatabase);
+
+
 function queryDatabase() {
 	var cVal
 	if(sVal() == "") return // empty input
