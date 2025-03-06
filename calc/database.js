@@ -2,11 +2,19 @@
 
 //try this code for auto loading database 
 function loadDatabase() {
+    console.log("loadDatabase() function started..."); // Debugging log
+
     fetch('db.txt')
-    .then(response => response.text())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text();
+    })
     .then(text => {
+        console.log("Database file loaded successfully!");
         userDB = parseDatabase(text);
-        console.log("Database loaded automatically!");
+        console.log("Parsed database:", userDB);
     })
     .catch(error => console.error("Error loading database:", error));
 }
