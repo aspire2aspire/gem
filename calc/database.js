@@ -27,6 +27,14 @@ document.addEventListener("DOMContentLoaded", loadDatabase);
 
 
 function queryDatabase() {
+	//this was added to check if the database is loaded
+	if (!userDB || userDB.length === 0) {
+	        console.error("Database not loaded yet! Try again in a few seconds.");
+	        alert("Database is still loading. Please wait.");
+		return;
+	} 
+    
+    console.log("Database loaded, running query...");
 	var cVal
 	if(sVal() == "") return // empty input
 
