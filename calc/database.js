@@ -38,7 +38,12 @@ function queryDatabase() {
 	var cVal
 	if(sVal() == "") return // empty input
 
-	if (liveDatabaseMode == true) calcLiveDatabase(userDBlive) // calculate gematria for live database for enabled ciphers
+	//this one is if you want user added database
+	//if (liveDatabaseMode == true) calcLiveDatabase(userDBlive) // calculate gematria for live database for enabled ciphers
+	//this is for if you're not in live database mode (user added db)
+	if (typeof liveDatabaseMode !== "undefined" && liveDatabaseMode == true) {
+    		calcLiveDatabase(userDBlive);
+	}
 
 	$("#calcMain").addClass("splitInterface") // split screen
 
