@@ -12,6 +12,14 @@
 <script src="calc/history.js"></script>
 <script src="calc/database.js"></script>
 
+<!-- AUTO LOAD DATABASE (DB) -->
+<!-- To change the word matching database reference a different file in the script below or append lines to db.txt -->
+<script>
+	var database = loadFile("db.txt");
+   	importFileAction(database, true);
+</script>
+
+
    <style>
         .header-nav {
             background-color: white;
